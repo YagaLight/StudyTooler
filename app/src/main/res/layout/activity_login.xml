@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="100dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="#fcf3ea"
+
+
+    >
+
+
+    <ImageView
+        android:id="@+id/img_personal_head"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/user_head" />
+
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:layout_marginTop="10dp"
+        android:hint="@string/hint_username"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_below="@id/img_personal_head" />
+
+
+    <Spinner
+        android:id="@+id/sp_user_list"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignRight="@id/et_username"
+        android:layout_marginTop="120dp"
+        android:spinnerMode="dropdown"
+        />
+
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/et_username"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"/>
+
+    <LinearLayout
+        android:id="@+id/ly_1"
+        android:layout_below="@id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/cb_rm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_password"
+            android:text="@string/checkbox_re"
+            android:textColor="@color/white"
+            android:layout_gravity="left"
+            android:layout_weight="3"/>
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="@string/button_cancel"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ly_1"
+            android:layout_marginTop="35dp"
+            android:text="@string/button_confirm"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_confirm"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="200dp"
+        >
+
+        <ImageButton
+            android:id="@+id/im_qq"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/img_qq"
+            android:scaleType="fitCenter"/>
+
+        <ImageButton
+            android:id="@+id/im_wechat"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/img_wechat"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
