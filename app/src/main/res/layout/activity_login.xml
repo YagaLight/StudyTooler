@@ -5,11 +5,10 @@
     android:paddingTop="100dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:background="#fcf3ea"
+    android:background="@drawable/bg1"
 
 
     >
-
 
     <ImageView
         android:id="@+id/img_personal_head"

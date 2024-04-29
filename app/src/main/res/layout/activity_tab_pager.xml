@@ -18,13 +18,19 @@
            android:id="@+id/page1"
             style="@style/TabButton"
             android:checked="true"
-            android:text="首页"
+            android:text="打卡"
             android:drawableTop="@drawable/tab_first_selector"/>
 
+
         <RadioButton
-            android:id="@+id/page2"
+            android:id="@+id/page4"
             style="@style/TabButton"
             android:text="我的"
             android:drawableTop="@drawable/tab_second_selector"/>
+
+
     </RadioGroup>
+
+
+
 </LinearLayout>

@@ -1,13 +1,21 @@
 package com.yc.studytooler;
 
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
+import com.yc.studytooler.bean.Punch;
+import com.yc.studytooler.dao.PunchDao;
+import com.yc.studytooler.viewmodel.PunchViewModel;
+import com.yc.studytooler.viewmodel.PunchViewModelFactory;
+import com.yc.studytooler.viewmodel.SubjectContentViewModel;
+import com.yc.studytooler.viewmodel.SubjectContentViewModelFactory;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-import com.yc.studytooler.bean.UserInfo;
-import com.yc.studytooler.dao.UserDao;
-
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,20 +24,19 @@ import java.util.List;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest{
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
+
+    private String user_name = "c";
+    private String semester_name = "大一上";
+    private String subject_name = "高数";
+    private Date punch_date;
+    private List<Punch> punchList;
+
 
     @Test
-    public void TEST01() {
-        List<UserInfo> userInfoList = new ArrayList<>();
-        UserDao userDao = TestUserRepository.getInstance().getUserDB().userDao();
-        userInfoList = userDao.getAllUsers();
-        if (userInfoList == null ){
-            System.out.println("是空的");
-        }
-//        System.out.println(userInfoList);
+    public void addition_isCorrect() {
+
     }
+
+
 
 }

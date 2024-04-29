@@ -2,6 +2,7 @@ package com.yc.studytooler;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
@@ -21,10 +22,12 @@ import android.widget.Toast;
 
 
 import com.yc.studytooler.adapter.LoginUserBaseAdapter;
+import com.yc.studytooler.bean.Converters;
 import com.yc.studytooler.bean.UserInfo;
-import com.yc.studytooler.fragment.PageOneFragment;
 import com.yc.studytooler.repository.UserRepository;
 import com.yc.studytooler.utils.ImageConverter;
+import com.yc.studytooler.viewmodel.UserViewModel;
+import com.yc.studytooler.viewmodel.UserViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +52,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private UserRepository userRepository;
-
+    private UserViewModel userViewModel;
+    private UserViewModelFactory factory;
     private ActivityResultLauncher<Intent> registerActivityResultLauncher;
 
     @Override
@@ -90,22 +94,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             et_username.setText(username);
                             et_password.setText(password);
                             if(head != null){
-                                img_personal_head.setImageBitmap(ImageConverter.byteArrayToBitmap(head));
+                                img_personal_head.setImageBitmap(Converters.byteArrayToBitmap(head));
                             }
-
+                            UserInfo info = new UserInfo();
+                            info.setUser_name(username);
+                            info.setUser_pwd(password);
+                            userViewModel.insert(info);
                             // 如果你的登录页面需要显示头像，也可以根据avatarUri来更新头像的显示
                         }
                     }
                 }
         );
 
-
-
     }
 
     public void initLogin(){
+
         userRepository = new UserRepository();
-        userInfoList = userRepository.getAllUsersInLogin();
+//        factory = new UserViewModelFactory(getApplication(), userRepository);
+        factory = new UserViewModelFactory(userRepository);
+        userViewModel = new ViewModelProvider(this, factory).get(UserViewModel.class);
+        userViewModel.getAllUsersInLogin().observe(this, new Observer<List<UserInfo>>() {
+            @Override
+            public void onChanged(List<UserInfo> userInfos) {
+                userInfoList = userInfos;
+            }
+        });
     }
 
 
@@ -135,16 +149,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return;
             }
 
-            UserInfo userInfo = userRepository.getUser(name,pwd);
-            if (userInfo != null ){
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("username",name);
-                returnIntent.putExtra("head",userInfo.getUser_head());
-                setResult(Activity.RESULT_OK,returnIntent);
-                finish();
-            }else{
-                Toast.makeText(LoginActivity.this,"用户名或密码不正确！",Toast.LENGTH_SHORT).show();
-            }
+            userViewModel.getUser(name,pwd).observe(this, new Observer<UserInfo>() {
+                @Override
+                public void onChanged(UserInfo userInfo) {
+                    if (userInfo != null ){
+                        Intent returnIntent = new Intent(LoginActivity.this,TabPagerActivity.class);
+                        returnIntent.putExtra("username",name);
+                        returnIntent.putExtra("head",userInfo.getUser_head());
+                        startActivity(returnIntent);
+//                        setResult(Activity.RESULT_OK,returnIntent);
+                        finish();
+                    }else{
+                        Toast.makeText(LoginActivity.this,"用户名或密码不正确！",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         }else if(v.getId() == R.id.tv_register){
             Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
@@ -162,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             UserInfo user = userInfoList.get(arg2);
 //            Toast.makeText(LoginActivity.this, "您选择的是" + userInfoList.get(arg2).user_name, Toast.LENGTH_LONG).show();
-            img_personal_head.setImageBitmap(ImageConverter.byteArrayToBitmap(user.getUser_head()));
+            img_personal_head.setImageBitmap(Converters.byteArrayToBitmap(user.getUser_head()));
             et_username.setText(user.getUser_name());
             if(user.getRemember() != 0){
                 et_password.setText(user.getUser_pwd());

@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.yc.studytooler.Test.RoomRead;
-import com.yc.studytooler.Test.RoomWrite;
+import com.yc.studytooler.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class MainActivity extends AppCompatActivity {
 
     private Button btn_write;
     private Button btn_read;
@@ -20,19 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.btn_write).setOnClickListener(this);
-        findViewById(R.id.btn_read).setOnClickListener(this);
 
 
-    }
 
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.btn_write) {
-            startActivity(new Intent(this, RoomWrite.class));
-        }else if (view.getId() == R.id.btn_read){
-            startActivity(new Intent(this, RoomRead.class));
-
-        }
     }
 }

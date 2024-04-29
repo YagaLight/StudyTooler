@@ -1,17 +1,98 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_first"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom|center"
-        android:text="这是第一页"
-        android:textColor="#000000"
-        android:textSize="17sp" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tl_tab_first_head"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/blue"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="课程"
+            app:titleMarginStart="130dp" />
+
+
+        <!-- Spinner container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="学期:" />
+            <!-- Semester selection Spinner -->
+            <Spinner
+                android:id="@+id/sp_semester"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:spinnerMode="dropdown" />
+
+            <CheckBox
+                android:id="@+id/cb_default_semester"
+                android:layout_width="0dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="10dp"
+
+                android:layout_weight="1"
+                android:text="默认学期" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="课程名:" />
+            <!-- Punch name selection Spinner -->
+            <Spinner
+                android:id="@+id/sp_subject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:spinnerMode="dropdown" />
+
+
+        </LinearLayout>
+
+        <!--内容展示区-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_add"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/img_add" />
+
+</FrameLayout>

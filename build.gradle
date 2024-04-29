@@ -3,3 +3,9 @@ plugins {
     id 'com.android.application' version '7.4.1' apply false
     id 'com.android.library' version '7.4.1' apply false
 }
+
+
+
+ext {
+    supportLibVersion = '28.0.0'
+}

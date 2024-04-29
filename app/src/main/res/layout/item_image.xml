@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <!-- 显示图片的ImageView -->
+    <ImageView
+        android:id="@+id/img_thumbnail"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_placeholder" />
+
+    <!-- 删除图片的按钮 -->
+    <ImageView
+        android:id="@+id/img_remove"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_gravity="top|end"
+        android:padding="4dp"
+        android:src="@drawable/ic_close"
+        android:background="@drawable/circle_background"
+        android:contentDescription="删除" />
+
+</FrameLayout>

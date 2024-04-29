@@ -1,16 +1,11 @@
 package com.yc.studytooler.repository;
 
-import android.app.Application;
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.room.Room;
 
 import com.yc.studytooler.MainApplication;
-import com.yc.studytooler.bean.UserInfo;
 import com.yc.studytooler.dao.UserDao;
-import com.yc.studytooler.database.UserDataBase;
+import com.yc.studytooler.bean.UserInfo;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -24,11 +19,11 @@ public class UserRepository {
 
     public UserRepository(){
 
-        userDao = MainApplication.getInstance().getUserDB().userDao();
+        userDao = MainApplication.getInstance().getStudyToolerDateBase().userDao();
     }
 
 
-    public LiveData<Boolean> insert(UserInfo user){
+    public void insert(UserInfo user){
         MutableLiveData<Boolean> insertResult = new MutableLiveData<>();
         executorService.execute(() -> {
             try {
@@ -38,23 +33,22 @@ public class UserRepository {
                 insertResult.postValue(false);
             }
         });
-        return insertResult;
     }
 
-    public List<UserInfo> getAllUsersInLogin(){
+    public LiveData<List<UserInfo>> getAllUsersInLogin(){
        return userDao.getAllUserInLogin();
     }
 
 
-    public List<UserInfo> getAllUsers(){
+    public LiveData<List<UserInfo>> getAllUsers(){
        return userDao.getAllUsers();
     }
 
-    public UserInfo getUser(String username,String password){
+    public LiveData<UserInfo> getUser(String username,String password){
         return userDao.getUser(username,password);
     }
 
-    public LiveData<Boolean> deleteAllUser() {
+    public void deleteAllUser() {
         MutableLiveData<Boolean> deleteResult = new MutableLiveData<>();
         executorService.execute(() -> {
             try {
@@ -64,6 +58,5 @@ public class UserRepository {
                 deleteResult.postValue(false);
             }
         });
-        return deleteResult;
     }
 }

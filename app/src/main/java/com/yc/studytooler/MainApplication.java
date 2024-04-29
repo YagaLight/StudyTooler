@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
 
-import com.yc.studytooler.database.UserDataBase;
+import com.yc.studytooler.database.StudyToolerDateBase;
 
 /**
  * @ClassName MainApplication
@@ -18,11 +18,9 @@ import com.yc.studytooler.database.UserDataBase;
  */
 public class MainApplication extends MultiDexApplication {
     private final static String TAG = "MainApplication";
-
     private static MainApplication mApp;
 
-    private UserDataBase userDataBase;
-
+    private StudyToolerDateBase studyToolerDateBase;
 
     public static MainApplication getInstance() {
         return mApp;
@@ -34,10 +32,9 @@ public class MainApplication extends MultiDexApplication {
         Log.d(TAG, "onCreate");
         mApp = this; // 在打开应用时对静态的应用实例赋值
 
-        //构建用户信息数据库实例
-        userDataBase = Room.databaseBuilder(mApp,UserDataBase.class,"UserInfo")
+
+        studyToolerDateBase = Room.databaseBuilder(mApp,StudyToolerDateBase.class,"StudyToolerDateBase")
                 .addMigrations()
-                .allowMainThreadQueries()
                 .build();
     }
 
@@ -52,7 +49,8 @@ public class MainApplication extends MultiDexApplication {
         super.onConfigurationChanged(newConfig);
     }
 
-    public UserDataBase getUserDB(){
-        return userDataBase;
+
+    public StudyToolerDateBase getStudyToolerDateBase(){
+        return studyToolerDateBase;
     }
 }

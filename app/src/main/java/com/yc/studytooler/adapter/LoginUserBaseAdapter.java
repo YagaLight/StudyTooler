@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yc.studytooler.R;
+import com.yc.studytooler.bean.Converters;
 import com.yc.studytooler.bean.UserInfo;
-import com.yc.studytooler.utils.ImageConverter;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class LoginUserBaseAdapter extends BaseAdapter {
         if(user.getUser_head() == null || user.getUser_head().length == 0){
             holder.iv_icon.setImageResource(R.drawable.user_head); // 显示行星的图片
         }else{
-            holder.iv_icon.setImageBitmap(ImageConverter.byteArrayToBitmap(user.getUser_head()));
+            holder.iv_icon.setImageBitmap(Converters.byteArrayToBitmap(user.getUser_head()));
         }
         holder.tv_name.setText(user.getUser_name()); // 显示行星的名称
         holder.iv_icon.requestFocus();

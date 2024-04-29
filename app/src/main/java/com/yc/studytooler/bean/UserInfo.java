@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * 用户中心
+ */
 @Entity(tableName = "UserInfo")
 public class UserInfo {
 

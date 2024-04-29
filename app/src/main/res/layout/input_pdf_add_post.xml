@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="留言："
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            />
+        <EditText
+            android:id="@+id/et_post_title"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="2.5"
+            android:hint="说几句话吧"
+            android:gravity="top"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="文件标题："
+            android:textSize="20sp"
+            android:gravity="center"
+            />
+        <EditText
+            android:id="@+id/et_post_pdf_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="说几句话吧"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <!-- PDF预览的PDFView组件 -->
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdf_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"/>
+
+
+    <!-- TextView to display the selected PDF file name -->
+    <TextView
+        android:id="@+id/tv_pdf_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="没有文件被选择"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:padding="8dp"
+        android:gravity="center_vertical"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Button to select a PDF file -->
+        <Button
+            android:id="@+id/btn_select_pdf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择 PDF"
+            android:textSize="18sp"/>
+
+        <!-- ImageView as a delete button -->
+        <ImageView
+            android:id="@+id/img_delete_pdf"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_close"
+            android:background="@drawable/circle_background"
+            android:visibility="gone"
+            android:contentDescription="删除"
+            android:padding="12dp"/>
+    </LinearLayout>
+</LinearLayout>

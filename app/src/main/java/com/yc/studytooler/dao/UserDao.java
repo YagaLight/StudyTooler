@@ -23,16 +23,16 @@ public interface UserDao {
 
     //登录使用
     @Query("SELECT * FROM UserInfo WHERE user_name = :name AND user_pwd = :password")
-    UserInfo getUser(String name, String password);
+    LiveData<UserInfo> getUser(String name, String password);
 
 
     //查询所有用户,用于登录页面
     @Query("SELECT * FROM UserInfo")
-    List<UserInfo> getAllUserInLogin();
+    LiveData<List<UserInfo>> getAllUserInLogin();
 
     //查询所有用户,用于其他页面
     @Query("SELECT * FROM UserInfo")
-    List<UserInfo> getAllUsers();
+    LiveData<List<UserInfo>> getAllUsers();
 
     @Query("DELETE FROM USERINFO WHERE 1=1")
     void deleteAllUser();

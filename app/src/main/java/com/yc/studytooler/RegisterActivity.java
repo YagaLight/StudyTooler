@@ -1,6 +1,5 @@
 package com.yc.studytooler;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,11 +12,15 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.yc.studytooler.bean.Converters;
 import com.yc.studytooler.bean.UserInfo;
 import com.yc.studytooler.repository.UserRepository;
 import com.yc.studytooler.utils.ImageConverter;
+import com.yc.studytooler.viewmodel.UserViewModel;
+import com.yc.studytooler.viewmodel.UserViewModelFactory;
 
 /**
  * @ClassName RegisterActivity
@@ -37,6 +40,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private UserRepository userRepository;
 
+    private UserViewModel userViewModel;
+
+    private  UserViewModelFactory factory;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         bt_register.setOnClickListener(this);
         bt_reset.setOnClickListener(this);
         userRepository = new UserRepository();
+
+//        factory = new UserViewModelFactory(getApplication(), userRepository);
+        factory = new UserViewModelFactory(userRepository);
+        userViewModel = new ViewModelProvider(this, factory).get(UserViewModel.class);
     }
 
     @Override
@@ -66,17 +77,31 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Toast.makeText(RegisterActivity.this,"请补充信息！",Toast.LENGTH_SHORT).show();
                 return;
             }
-            UserInfo old_userInfo = userRepository.getUser(name,password);
-            if(old_userInfo != null){
-                Toast.makeText(RegisterActivity.this,"用户名已存在，请重新输入",Toast.LENGTH_SHORT).show();
-            }else{
-                UserInfo new_userInfo = new UserInfo();
-                new_userInfo.setUser_name(name);
-                new_userInfo.setUser_pwd(password);
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.user_head);
-                new_userInfo.setUser_head(ImageConverter.bitmapToByteArray(bitmap));
-                userRepository.insert(new_userInfo).observe(RegisterActivity.this,isSuccess->{
-                    if(isSuccess){
+            userViewModel.getUser(name,password).observe(this, new Observer<UserInfo>() {
+                @Override
+                public void onChanged(UserInfo old_userInfo) {
+                    if(old_userInfo != null){
+                        Toast.makeText(RegisterActivity.this,"用户名已存在，请重新输入",Toast.LENGTH_SHORT).show();
+                    }else{
+                        UserInfo new_userInfo = new UserInfo();
+                        new_userInfo.setUser_name(name);
+                        new_userInfo.setUser_pwd(password);
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.user_head);
+                        new_userInfo.setUser_head(Converters.bitmapToByteArray(bitmap));
+//                        userRepository.insert(new_userInfo).observe(RegisterActivity.this,isSuccess->{
+//                            if(isSuccess){
+//                                //构建返回登录页面的Intent
+//                                Intent returnIntent = new Intent();
+//                                returnIntent.putExtra("username",new_userInfo.getUser_name());
+//                                returnIntent.putExtra("password",new_userInfo.getUser_pwd());
+//                                returnIntent.putExtra("head",new_userInfo.getUser_head());
+//                                setResult(Activity.RESULT_OK,returnIntent);
+//                                finish();
+//                            }else{
+//
+//                            }
+//                        });
+                        userViewModel.insert(new_userInfo);
                         //构建返回登录页面的Intent
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("username",new_userInfo.getUser_name());
@@ -84,12 +109,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         returnIntent.putExtra("head",new_userInfo.getUser_head());
                         setResult(Activity.RESULT_OK,returnIntent);
                         finish();
-                    }else{
-
                     }
-                });
+                }
+            });
 
-            }
         } else if (v.getId() == R.id.bt_reset) {
             et_name.setText("");
             et_pwd.setText("");
